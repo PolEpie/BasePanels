@@ -1,3 +1,20 @@
+net.Receive("Quiditch:OpenPanel", function()
+    local panelName = net.ReadString()
+
+    if panelName == "TeamList" then
+        Quiditch.OpenTeamPanel()
+    elseif panelName == "TeamCreation" then
+        Quiditch.OpenTeamCreationPanel()
+    end
+end)
+
+net.Receive("Quiditch:Notification", function()
+    local txt = net.ReadString()
+    local type = net.ReadUInt(3)
+
+    notification.AddLegacy(txt, type, 5)
+end)
+
 function Quiditch.OpenTeamPanel()
 
     --Lua refresh support
@@ -104,9 +121,12 @@ function Quiditch.OpenTournamentsHouses()
 end
 
 net.Receive("Quiditch:GetHousesInfo", function(_, ply)
-    if Quiditch.TournamentsHouses == nil then return end
 
     local tbl = net.ReadTable()
+
+    Quiditch.HousesInfo = tbl
+
+    if Quiditch.TournamentsHouses == nil then return end
 
     local width, height = Quiditch.TournamentsHouses.Frame:GetSize()
 
@@ -213,9 +233,11 @@ function Quiditch.OpenTournamentsTeams()
 end
 
 net.Receive("Quiditch:GetTeamsInfo", function(_, ply)
-    if Quiditch.TournamentsTeams == nil then return end
-
     local tbl = net.ReadTable()
+
+    Quiditch.TeamsInfo = tbl
+
+    if Quiditch.TournamentsTeams == nil then return end
 
     local width, height = Quiditch.TournamentsTeams.Frame:GetSize()
 
@@ -283,16 +305,64 @@ net.Receive("Quiditch:GetTeamsInfo", function(_, ply)
 
 end )
 
+function Quiditch.OpenTeamCreationPanel()
 
-concommand.Add("teams", function()
+    --Lua refresh support
+    if Quiditch.TeamCreationPanel then
+        return
+    end
 
-    Quiditch.OpenTeamPanel()
+    Quiditch.TeamCreationPanel = {}
 
- end)
+    Quiditch.TeamCreationPanel.Frame = vgui.Create("DFrame")
+    Quiditch.TeamCreationPanel.Frame:SetSize(ScrH() * 0.66, ScrH() * 0.33)
+    Quiditch.TeamCreationPanel.Frame:MakePopup()
+    Quiditch.TeamCreationPanel.Frame:ParentToHUD()
+    Quiditch.TeamCreationPanel.Frame:SetTitle("")
+    Quiditch.TeamCreationPanel.Frame:Center()
+    function Quiditch.TeamCreationPanel.Frame:OnClose()
+        Quiditch.TeamCreationPanel = nil
+    end
 
-net.Receive("Quiditch:Notification", function()
-    local txt = net.ReadString()
-    local type = net.ReadUInt(3)
+    function Quiditch.TeamCreationPanel.Frame:Paint(w,h)
+        draw.RoundedBox(0, 0, 0, w, h, Color(255,255,255))
+        draw.SimpleText(Quiditch.Lang.HeaderTeamCreationPanel, "Quiditch_Bold", w / 2, 40 * h / 1080, Color(0,0,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
 
-    notification.AddLegacy(txt, type, 5)
-end)
+
+        draw.SimpleText(string.format(Quiditch.Lang.PriceCreation, Quiditch.Config.TeamCreationPrice), "Quiditch_Petit", w / 2, 550 * h / 1080, Color(0,0,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+    end
+
+    local width, height = Quiditch.TeamCreationPanel.Frame:GetSize()
+
+    Quiditch.TeamCreationPanel.TeamName = vgui.Create("DTextEntry", Quiditch.TeamCreationPanel.Frame)
+    Quiditch.TeamCreationPanel.TeamName:SetSize(width * 0.7, height * 0.1)
+    Quiditch.TeamCreationPanel.TeamName:SetPlaceholderText(Quiditch.Lang.TeamName)
+    Quiditch.TeamCreationPanel.TeamName:CenterVertical(0.35)
+    Quiditch.TeamCreationPanel.TeamName:CenterHorizontal()
+
+
+    Quiditch.TeamCreationPanel.ButtonSubmit = vgui.Create("DButton", Quiditch.TeamCreationPanel.Frame)
+    Quiditch.TeamCreationPanel.ButtonSubmit:SetSize(width * 0.4, height * 0.1)
+    Quiditch.TeamCreationPanel.ButtonSubmit:SetText(Quiditch.Lang.CreateTeamButton)
+    Quiditch.TeamCreationPanel.ButtonSubmit:CenterVertical(0.8)
+    Quiditch.TeamCreationPanel.ButtonSubmit:CenterHorizontal()
+
+    function Quiditch.TeamCreationPanel.ButtonSubmit:DoClick()
+        if LocalPlayer():CanAfford(Quiditch.Config.TeamCreationPrice) then
+            local teamName = Quiditch.TeamCreationPanel.TeamName:GetValue()
+
+            if teamName ~= nil and #teamName > 1 then
+                Quiditch.TeamCreationPanel.Frame:Close()
+
+                net.Start("Quiditch:CreateTeam")
+                net.WriteString(teamName)
+                net.SendToServer()
+            else
+                notification.AddLegacy(Quiditch.Lang.BadName, 1, 5)
+            end
+        else
+            notification.AddLegacy(Quiditch.Lang.CantAfford, 1, 5)
+        end
+    end
+
+end

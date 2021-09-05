@@ -36,6 +36,7 @@ function Quiditch.DB:onConnected()
     (
         name varchar(120) not null primary key,
         is_house tinyint default 0 null,
+        captain varchar(64) null,
         constraint `quiditch-houses_name_uindex`
             unique (name)
     );]])
@@ -124,14 +125,15 @@ function Quiditch.DB:onConnected()
 
     q4:start()
 
-    timer.Simple(10, function()
+    timer.Simple(3, function()
         Quiditch.Houses = {}
+        Quiditch.Players = {}
         Quiditch.Teams = {}
         local q = Quiditch.DB:prepare("select * from `quiditch-teams`;")
 
         function q:onSuccess(data)
             for _, v in ipairs(data) do
-                if v.is_house then
+                if v.is_house == 1 then
                     Quiditch.Houses[v.name] = {  }
                 else
                     Quiditch.Teams[v.name] = {  }
@@ -154,6 +156,7 @@ function Quiditch.DB:onConnected()
                                 ["uid"] = v.uid
                             }
                         end
+                        Quiditch.Players[v.uid] = v.team
                     elseif Quiditch.Teams[v.team] then
                         if v.job then
                             Quiditch.Teams[v.team][v.job .. "_uid"] = v.uid
@@ -166,6 +169,7 @@ function Quiditch.DB:onConnected()
                                 ["uid"] = v.uid
                             }
                         end
+                        Quiditch.Players[v.uid] = v.team
                     end
                 end
             end
@@ -266,4 +270,57 @@ function Quiditch.AddRequestToTeam(teamName, ply, is_house)
     q:setString(3, teamName)
     q:start()
 
+end
+
+function Quiditch.CreateTeam(teamName, ply)
+
+    local q = Quiditch.DB:prepare("insert into `quiditch-players` (team,uid,name) values (?,?,?);")
+
+    function q:onError(err, sql)
+        print("[QUIDITCH] Query errored!")
+        print("[QUIDITCH] Query:", sql)
+        print("[QUIDITCH] Error:", err)
+        print("[QUIDITCH] " .. debug.traceback())
+    end
+
+    q:setString(1, teamName)
+    q:setString(2, ply:SteamID64())
+    q:setString(3, ply:Name())
+    q:start()
+
+    local q2 = Quiditch.DB:prepare("insert into `quiditch-teams` (name, is_house, captain) values (?,0,?);")
+
+    function q2:onError(err, sql)
+        print("[QUIDITCH] Query errored!")
+        print("[QUIDITCH] Query:", sql)
+        print("[QUIDITCH] Error:", err)
+        print("[QUIDITCH] " .. debug.traceback())
+    end
+
+    q2:setString(1, teamName)
+    q2:setString(2, ply:SteamID64())
+    q2:start()
+
+    local q3 = Quiditch.DB:prepare("delete from `quiditch-request` where uid=?;")
+
+    function q3:onError(err, sql)
+        print("[QUIDITCH] Query errored!")
+        print("[QUIDITCH] Query:", sql)
+        print("[QUIDITCH] Error:", err)
+        print("[QUIDITCH] " .. debug.traceback())
+    end
+
+    q3:setString(1, ply:SteamID64())
+    q3:start()
+
+    Quiditch.Players[ply:SteamID64()] = teamName
+    Quiditch.Teams[teamName] = {
+        ['noteam'] = {
+            { ["name"] = ply:Name(),
+              ["uid"] = ply:SteamID64(), }
+        },
+        ['captain'] = ply:SteamID64(),
+    }
+
+    ply:QuiditchSync()
 end

@@ -13,6 +13,20 @@ Quiditch.Lang = {
 
     ["ApplyButton"] = "Postuler",
     ["ApplyNotification"] = "Votre candidature a été envoyé",
-    ["ApplyAlreadyDoneNotification"] = "Votre candidature a déja été envoyé"
+    ["ApplyAlreadyDoneNotification"] = "Votre candidature a déja été envoyé",
+
+    ["CantAfford"] = "Vous n'avez pas assez d'argent",
+
+    ["HeaderTeamCreationPanel"] = "Création d'équipe Quiditch",
+    ["TeamName"] = "Nom de votre équipe",
+    ["PriceCreation"] = "Une création d'équipe coute %s gallions",
+    ["CreateTeamButton"] = "Créer mon équipe",
+    ["BadName"] = "Le nom est trop court",
+    ["NameAlreadyExist"] = "Le nom est déja prit",
+    ["PlayerAlreadyInTeam"] = "Vous êtes déja dans une équipe",
+    ["TeamCreated"] = "Votre équipe à bien été créer",
+
+    ["InteractWithTeamCreationNPC"] = "Créer une équipe Quiditch",
+    ["InteractWithTeamListNPC"] = "Voir les équipes de Quiditch",
 
 }

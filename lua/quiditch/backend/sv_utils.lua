@@ -14,3 +14,4 @@ function GenerateRandomVector(Vector1, Vector2)
 
     return Vector(randX, randY, randZ)
 end
+
