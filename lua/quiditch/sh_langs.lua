@@ -5,6 +5,10 @@ Quiditch.Lang = {
     ["TournamentsCustomButton"] = "Equipes personnalisé",
     ["NoTeam"] = "Aucune Equipe n'a été créer",
 
+    ["HeaderTeamPanelViewTeam"] = "Equipe de Quiditch",
+    ["HeaderTeamPanelSelectHouse"] = "Selectionner une maison",
+
+    ["HouseName"] = "Maison",
     ["CaptainName"] = "Capitaine",
     ["SeekerName"] = "Attrappeur",
     ["BeaterName"] = "Batteurs",

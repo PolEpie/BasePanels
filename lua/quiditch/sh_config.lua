@@ -1,21 +1,25 @@
 Quiditch.Config = {
 
     ["Houses"] = {
-        {
-            ["Name"] ="Poufsouffle",
-            ["Job"] = "Capitaine de Quidditch de Poufsouffle"
+        ["Poufsouffle"] = {
+            ["Job"] = "Capitaine de Quidditch de Poufsouffle",
+            ["ButtonMaterial"] = "button_yellow",
+            ["Color"] = Color(101,184,31)
         },
-        {
-            ["Name"] ="Gryffondor",
-            ["Job"] = "Capitaine de Quidditch de Gryffondor"
+        ["Gryffondor"] = {
+            ["Job"] = "Capitaine de Quidditch de Gryffondor",
+            ["ButtonMaterial"] = "button_red",
+            ["Color"] = Color(101,184,31)
         },
-        {
-            ["Name"] ="Serpentard",
-            ["Job"] = "Capitaine de Quidditch de Serpentard"
+        ["Serpentard"] = {
+            ["Job"] = "Capitaine de Quidditch de Serpentard",
+            ["ButtonMaterial"] = "button_green",
+            ["Color"] = Color(101,184,31)
         },
-        {
-            ["Name"] ="Serdaible",
-            ["Job"] = "Capitaine de Quidditch de Serdaible"
+        ["Serdaible"] = {
+            ["Job"] = "Capitaine de Quidditch de Serdaible",
+            ["ButtonMaterial"] = "button_blueYellow",
+            ["Color"] = Color(101,184,31)
         }
     },
 

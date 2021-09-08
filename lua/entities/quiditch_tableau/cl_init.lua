@@ -2,6 +2,12 @@ include("shared.lua")
 local imgui = include("quiditch/ui/cl_imgui.lua")
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 
+local HousesName = {}
+
+for k, v in pairs(Quiditch.Config.Houses) do
+    HousesName[#HousesName + 1] = k
+end
+
 function ENT:DrawTranslucent()
     -- While you can of course use the imgui.Start3D2D function for entities, IMGUI has some special syntax
     -- This function automatically calls LocalToWorld and LocalToWorldAngles respectively on position and angles
@@ -29,17 +35,17 @@ function ENT:DrawTranslucent()
                 if Quiditch.HousesInfo ~= nil then
                     surface.SetDrawColor(255, 255, 255)
                     surface.DrawRect(-500, -250, 1500, 1000)
-                    if imgui.xTextButton(Quiditch.Config.Houses[1].Name, "Quiditch_Bold", 400, -100, 500, 100, 1, Color(0,0,0)) then
-                        Quiditch.HousesSelected = Quiditch.Config.Houses[1].Name
+                    if imgui.xTextButton(HousesName[1], "Quiditch_Bold", 400, -100, 500, 100, 1, Color(0,0,0)) then
+                        Quiditch.HousesSelected = HousesName[1]
                     end
-                    if imgui.xTextButton(Quiditch.Config.Houses[2].Name, "Quiditch_Bold", 400, 100, 500, 100, 1, Color(0,0,0)) then
-                        Quiditch.HousesSelected = Quiditch.Config.Houses[2].Name
+                    if imgui.xTextButton(HousesName[2], "Quiditch_Bold", 400, 100, 500, 100, 1, Color(0,0,0)) then
+                        Quiditch.HousesSelected = HousesName[2]
                     end
-                    if imgui.xTextButton(Quiditch.Config.Houses[3].Name, "Quiditch_Bold", 400, 300, 500, 100, 1, Color(0,0,0)) then
-                        Quiditch.HousesSelected = Quiditch.Config.Houses[3].Name
+                    if imgui.xTextButton(HousesName[3], "Quiditch_Bold", 400, 300, 500, 100, 1, Color(0,0,0)) then
+                        Quiditch.HousesSelected = HousesName[3]
                     end
-                    if imgui.xTextButton(Quiditch.Config.Houses[4].Name, "Quiditch_Bold", 400, 500, 500, 100, 1, Color(0,0,0)) then
-                        Quiditch.HousesSelected = Quiditch.Config.Houses[4].Name
+                    if imgui.xTextButton(HousesName[4], "Quiditch_Bold", 400, 500, 500, 100, 1, Color(0,0,0)) then
+                        Quiditch.HousesSelected = HousesName[4]
                     end
                 else
                     surface.SetDrawColor(255, 255, 255)
@@ -59,8 +65,8 @@ function ENT:DrawTranslucent()
 
                     surface.SetDrawColor(0, 0, 0)
                     surface.DrawRect(500, -400, 800, 1350)
---[[
-                    if imgui.xTextButton(Quiditch.Config.Houses[1].Name, "Quiditch_Bold", 400, -100, 500, 100, 1, Color(0,0,0)) then
+
+                    --[[if imgui.xTextButton(Quiditch.Config.Houses[1].Name, "Quiditch_Bold", 400, -100, 500, 100, 1, Color(0,0,0)) then
                         Quiditch.TeamsSelected = Quiditch.Config.Houses[1].Name
                     end]]
 
