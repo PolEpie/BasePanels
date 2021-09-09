@@ -25,9 +25,9 @@ function Quiditch.OpenTeamPanel()
     Quiditch.TeamPanel = {}
 
     Quiditch.TeamPanel.Frame = vgui.Create("DHttpImageFrame")
-    Quiditch.TeamPanel.Frame:SetSize(ScrH() * 559 / 1080, ScrH() * 368 / 1080)
+    Quiditch.TeamPanel.Frame:SetSize(RespH(559), RespH(368))
     Quiditch.TeamPanel.Frame:MakePopup()
-    Quiditch.TeamPanel.Frame:SetImage("background_equipe.png", ScrH() * 559 / 1080, ScrH() * 368 / 1080,0,0)
+    Quiditch.TeamPanel.Frame:SetImage("background_equipe.png", RespH(559), RespH(368),0,0)
     Quiditch.TeamPanel.Frame:ParentToHUD()
     Quiditch.TeamPanel.Frame:SetTitle("")
     Quiditch.TeamPanel.Frame:Center()
@@ -42,13 +42,13 @@ function Quiditch.OpenTeamPanel()
     local width, height = Quiditch.TeamPanel.Frame:GetSize()
 
     Quiditch.TeamPanel.TournamentsHousesButton = vgui.Create("DHttpImageButtonHover", Quiditch.TeamPanel.Frame)
-    Quiditch.TeamPanel.TournamentsHousesButton:SetSize(ScrH() * 453 / 1080, ScrH() * 84 / 1080)
+    Quiditch.TeamPanel.TournamentsHousesButton:SetSize(RespH(453), RespH(84))
     Quiditch.TeamPanel.TournamentsHousesButton:SetText(Quiditch.Lang.TournamentsHousesButton)
     Quiditch.TeamPanel.TournamentsHousesButton:CenterVertical(0.41)
     Quiditch.TeamPanel.TournamentsHousesButton:SetFont("Quiditch_Normal")
     Quiditch.TeamPanel.TournamentsHousesButton:CenterHorizontal()
-    Quiditch.TeamPanel.TournamentsHousesButton:SetImage("button_blue.png", ScrH() * 436 / 1080, ScrH() * 66 / 1080,ScrH() * 8.5 / 1080,ScrH() * 9 / 1080, false)
-    Quiditch.TeamPanel.TournamentsHousesButton:SetImage("button_blue_selected.png", ScrH() * 453 / 1080, ScrH() * 84 / 1080,0,0, true)
+    Quiditch.TeamPanel.TournamentsHousesButton:SetImage("button_blue.png", RespH(436), RespH(66),RespH(8.5),RespH(9), false)
+    Quiditch.TeamPanel.TournamentsHousesButton:SetImage("button_blue_selected.png", RespH(453), RespH(84),0,0, true)
     function Quiditch.TeamPanel.TournamentsHousesButton:DoClick()
         Quiditch.TeamPanel.Frame:Close()
 
@@ -74,7 +74,7 @@ function Quiditch.OpenTeamPanel()
         surface.SetDrawColor(Color(255, 255, 255))
         surface.SetMaterial(self.ImageTropheeMat)
 
-        surface.DrawTexturedRect(w / 2 - wtrophee / 2 - ScrH() * 39 / 1080, h / 2 - (ScrH() * 21 / 1080), ScrH() * 29 / 1080, ScrH() * 42 / 1080)
+        surface.DrawTexturedRect(w / 2 - wtrophee / 2 - RespH(39), h / 2 - RespH(21), RespH(29), RespH(42))
     end
 
     function Quiditch.TeamPanel.TournamentsHousesButton:Think()
@@ -87,13 +87,13 @@ function Quiditch.OpenTeamPanel()
 
 
     Quiditch.TeamPanel.TournamentsCustomButton = vgui.Create("DHttpImageButtonHover", Quiditch.TeamPanel.Frame)
-    Quiditch.TeamPanel.TournamentsCustomButton:SetSize(ScrH() * 453 / 1080, ScrH() * 84 / 1080)
+    Quiditch.TeamPanel.TournamentsCustomButton:SetSize(RespH(453), RespH(84))
     Quiditch.TeamPanel.TournamentsCustomButton:SetText(Quiditch.Lang.TournamentsCustomButton)
     Quiditch.TeamPanel.TournamentsCustomButton:CenterVertical(0.65)
     Quiditch.TeamPanel.TournamentsCustomButton:CenterHorizontal()
     Quiditch.TeamPanel.TournamentsCustomButton:SetFont("Quiditch_Normal")
-    Quiditch.TeamPanel.TournamentsCustomButton:SetImage("button_blue.png", ScrH() * 436 / 1080, ScrH() * 66 / 1080,ScrH() * 8.5 / 1080,ScrH() * 9 / 1080, false)
-    Quiditch.TeamPanel.TournamentsCustomButton:SetImage("button_blue_selected.png", ScrH() * 453 / 1080, ScrH() * 84 / 1080,0,0, true)
+    Quiditch.TeamPanel.TournamentsCustomButton:SetImage("button_blue.png", RespH(436), RespH(66),RespH(8.5),RespH(9), false)
+    Quiditch.TeamPanel.TournamentsCustomButton:SetImage("button_blue_selected.png", RespH(453), RespH(84),0,0, true)
 
     function Quiditch.TeamPanel.TournamentsCustomButton:DoClick()
         Quiditch.TeamPanel.Frame:Close()
@@ -127,7 +127,7 @@ function Quiditch.OpenTeamPanel()
         surface.SetDrawColor(Color(255, 255, 255))
         surface.SetMaterial(self.ImagePersoMat)
 
-        surface.DrawTexturedRect(w / 2 - wperso / 2 - ScrH() * 37 / 1080, h / 2 - (ScrH() * 17 / 1080), ScrH() * 27 / 1080, ScrH() * 34 / 1080)
+        surface.DrawTexturedRect(w / 2 - wperso / 2 - RespH(37), h / 2 - RespH(27), RespH(27), RespH(34))
     end
 
 end
@@ -141,9 +141,9 @@ function Quiditch.OpenTournamentsHouses()
     Quiditch.TournamentsHouses = {}
 
     Quiditch.TournamentsHouses.Frame = vgui.Create("DHttpImageFrame")
-    Quiditch.TournamentsHouses.Frame:SetSize(ScrH() * 1140 / 1080, ScrH() * 868 / 1080)
+    Quiditch.TournamentsHouses.Frame:SetSize(RespH(1140), RespH(868))
     Quiditch.TournamentsHouses.Frame:MakePopup()
-    Quiditch.TournamentsHouses.Frame:SetImage("background_houses.png", ScrH() * 1140 / 1080, ScrH() * 868 / 1080,0,0)
+    Quiditch.TournamentsHouses.Frame:SetImage("background_houses.png", RespH(1140), RespH(868),0,0)
     Quiditch.TournamentsHouses.Frame:ParentToHUD()
     Quiditch.TournamentsHouses.Frame:SetTitle("")
     Quiditch.TournamentsHouses.Frame:Center()
@@ -435,9 +435,9 @@ function Quiditch.OpenTournamentsTeams()
     Quiditch.TournamentsTeams = {}
 
     Quiditch.TournamentsTeams.Frame = vgui.Create("DHttpImageFrame")
-    Quiditch.TournamentsTeams.Frame:SetSize(ScrH() * 1139 / 1080, ScrH() * 866 / 1080)
+    Quiditch.TournamentsTeams.Frame:SetSize(RespH(1139), RespH(866))
     Quiditch.TournamentsTeams.Frame:MakePopup()
-    Quiditch.TournamentsTeams.Frame:SetImage("background_teams.png", ScrH() * 1139 / 1080, ScrH() * 866 / 1080,0,0)
+    Quiditch.TournamentsTeams.Frame:SetImage("background_teams.png", RespH(1139), RespH(866),0,0)
     Quiditch.TournamentsTeams.Frame:ParentToHUD()
     Quiditch.TournamentsTeams.Frame:SetTitle("")
     Quiditch.TournamentsTeams.Frame:Center()
@@ -446,14 +446,14 @@ function Quiditch.OpenTournamentsTeams()
     end
 
     function Quiditch.TournamentsTeams.Frame:PostPaint(w,h)
-        draw.SimpleText(Quiditch.Lang.HeaderTeamPanel, "DermaDefault", w / 2, 30 * h / 1080, Color(0,0,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+        draw.SimpleText(Quiditch.Lang.HeaderTeamPanel, "DermaDefault", w / 2, RespH(20), Color(0,0,0), TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
     end
 
     local width, height = Quiditch.TournamentsTeams.Frame:GetSize()
 
     Quiditch.TournamentsTeams.PanelHousesBtn = vgui.Create("DScrollPanel", Quiditch.TournamentsTeams.Frame)
-    Quiditch.TournamentsTeams.PanelHousesBtn:SetSize(width * 0.412, height * 0.668)
-    Quiditch.TournamentsTeams.PanelHousesBtn:SetPos(width * 0.032, height * 0.125)
+    Quiditch.TournamentsTeams.PanelHousesBtn:SetSize(RespH(470), RespH(579))
+    Quiditch.TournamentsTeams.PanelHousesBtn:SetPos(RespH(38), RespH(109))
 --[[    function Quiditch.TournamentsTeams.PanelHousesBtn:Paint(w,h)
         draw.RoundedBox(0,0,0,w,h,Color(255,255,255,255))
     end]]
@@ -556,7 +556,7 @@ net.Receive("Quiditch:GetTeamsInfo", function(_, ply)
     if i > 13 then
         local sbar = Quiditch.TournamentsTeams.PanelHousesBtn:GetVBar()
         function sbar:Paint(w, h)
-            draw.RoundedBox(w / 2, 0, 0, w, h * 0.7, Color(255, 255, 255, 255))
+            draw.RoundedBox(0, RespH(2), RespH(20), w - RespH(4), h - RespH(130), Color(19,59,66))
         end
         function sbar.btnUp:Paint(w, h)
         end
@@ -566,11 +566,12 @@ net.Receive("Quiditch:GetTeamsInfo", function(_, ply)
             draw.RoundedBox(w / 2, 0, 0, w, w, Color(100, 200, 0))
         end
 
-        Quiditch.TournamentsTeams.PanelHousesBtn:SetWide(width * 0.435)
-        Quiditch.TournamentsTeams.PanelHousesBtn:GetCanvas():DockPadding(0,0,width*0.017,0)
+        Quiditch.TournamentsTeams.PanelHousesBtn:SetWide(RespH(515))--RespH(470)
+        Quiditch.TournamentsTeams.PanelHousesBtn:GetCanvas():DockPadding(0,0,RespH(30),0)
         Quiditch.TournamentsTeams.PanelHousesBtn.VBar:Dock(0)
-        Quiditch.TournamentsTeams.PanelHousesBtn.VBar:SetPos(width * 0.426,width * 0.042)
-        Quiditch.TournamentsTeams.PanelHousesBtn.VBar:SetTall(width * 0.6)
+        Quiditch.TournamentsTeams.PanelHousesBtn.VBar:SetPos(RespH(490),1)
+        Quiditch.TournamentsTeams.PanelHousesBtn.VBar:CenterVertical(0.7)
+        Quiditch.TournamentsTeams.PanelHousesBtn.VBar:SetSize(RespH(15),RespH(600))
     end
 
 

@@ -169,7 +169,14 @@ vgui.Register("DHttpImageButtonHover", PANEL, "DButton")
 
 PANEL = {}
 function PANEL:Init()
+    self:ShowCloseButton(false)
+    timer.Simple(0, function()
+        Quiditch.ClosePanel(self)
+    end)
+
 end
+
+
 function PANEL:SetImage(img, sizeX, sizeY, offX, offY)
     offX = offX or 0
     offY = offY or 0
@@ -184,6 +191,7 @@ function PANEL:SetImage(img, sizeX, sizeY, offX, offY)
         end
     end)
 end
+
 function PANEL:Paint(w, h)
     if not self.ImageMat then self:PostPaint(w, h) return end
     surface.SetDrawColor(Color(255, 255, 255))
@@ -191,7 +199,37 @@ function PANEL:Paint(w, h)
     surface.DrawTexturedRect(self.ImageOffX, self.ImageOffY, self.ImageSizeX, self.ImageSizeY)
     self:PostPaint(w, h)
 end
+
 function PANEL:PostPaint(w, h)
 
 end
 vgui.Register("DHttpImageFrame", PANEL, "DFrame")
+
+Quiditch.RespH = {}
+
+function RespH(val)
+
+    if Quiditch.RespH[val] then
+        return Quiditch.RespH[val]
+    end
+
+    Quiditch.RespH[val] = val * ScrH() / 1080
+    return Quiditch.RespH[val]
+
+end
+
+function Quiditch.ClosePanel(frame)
+
+    local width = frame:GetWide()
+    
+    local CloseBtn = vgui.Create("HttpImageButton", frame)
+    CloseBtn:SetSize(RespH(19), RespH(19))
+    CloseBtn:SetPos(width - RespH(39), RespH(20))
+    CloseBtn:SetImage("icon_x.png", RespH(19), RespH(19),0,0)
+    CloseBtn:SetText("")
+
+    function CloseBtn:DoClick()
+        frame:Close()
+    end
+    
+end 
