@@ -4,6 +4,10 @@ Quiditch.Lang = {
     ["TournamentsHousesButton"] = "Tournoi des 4 maisons",
     ["TournamentsCustomButton"] = "Equipes personnalisé",
     ["NoTeam"] = "Aucune Equipe n'a été créer",
+    ["PlayerJoined"] = "%s a rejoint votre équipe de quiditch",
+    ["PlayerJoinedTeam"] = "Vous avez été accepté par l'équipe %s de quiditch",
+    ["PlayerAlreadyInTeam"] = "Le joueur est déja dans une équipe",
+    ["PlayerInviteTeam"] = "L'équipe %s vous a invité dans son équipe",
 
     ["HeaderTeamPanelViewTeam"] = "Equipe de Quiditch",
     ["HeaderTeamPanelSelectHouse"] = "Selectionner une maison",

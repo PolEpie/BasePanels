@@ -83,6 +83,108 @@ net.Receive("Quiditch:ApplyTeam", function(_, ply)
     ply.LastQuiditchNet = os.time() + 1
 end )
 
+net.Receive("Quiditch:AcceptTeam", function(_, ply)
+    if not ply:Alive() then return end
+    if ply.LastQuiditchNet ~= nil and ply.LastQuiditchNet > os.time() then return end
+
+    local uid = net.ReadString()
+    local teamName = Quiditch.Players[ply:SteamID64()]
+
+    if not teamName then
+        return
+    end
+
+    if Quiditch.Houses[teamName] and team.GetName(ply:Team()) == Quiditch.Config.Houses[teamName].Job then
+
+        Quiditch.AddPlayerToTeam(ply, teamName)
+
+        for k, v in pairs(Quiditch.JobList) do
+            if Quiditch.Houses[teamName][v] ~= nil then
+                local p = player.GetBySteamID64(Quiditch.Houses[teamName][v])
+
+                if p then
+                    Quiditch.Notif(string.format(Quiditch.Lang.PlayerJoined, ply:Name(), 0, p)
+                end
+            end
+        end
+
+    elseif Quiditch.Teams[teamName] and Quiditch.Teams[teamName].captain == ply:SteamID64() then
+
+        Quiditch.AddPlayerToTeam(ply, teamName)
+
+         for k, v in pairs(Quiditch.JobList) do
+            if Quiditch.Teams[teamName][v] ~= nil then
+                local p = player.GetBySteamID64(Quiditch.Teams[teamName][v])
+
+                if p then
+                    Quiditch.Notif(string.format(Quiditch.Lang.PlayerJoined, ply:Name(), 0, p)
+                end
+            end
+        end
+    end
+
+    Quiditch.Notif(string.format(Quiditch.Lang.PlayerJoinedTeam, teamName, 0, p)
+
+    ply.LastQuiditchNet = os.time() + 1
+end )
+
+net.Receive("Quiditch:InviteTeam", function(_, ply)
+    if not ply:Alive() then return end
+    if ply.LastQuiditchNet ~= nil and ply.LastQuiditchNet > os.time() then return end
+
+    local uid = net.ReadString()
+    local teamName = Quiditch.Players[ply:SteamID64()]
+
+    if not teamName then
+        return
+    end
+
+    Quiditch.VerifyPlayerTeam(ply, function()
+
+        if Quiditch.Houses[teamName] and team.GetName(ply:Team()) == Quiditch.Config.Houses[teamName].Job then
+
+            Quiditch.AddPlayerToTeam(ply, teamName)
+
+            for k, v in pairs(Quiditch.JobList) do
+                if Quiditch.Houses[teamName][v] ~= nil then
+                    local p = player.GetBySteamID64(Quiditch.Houses[teamName][v])
+
+                    if p then
+                        Quiditch.Notif(string.format(Quiditch.Lang.PlayerJoined, ply:Name(), 0, p)
+                    end
+                end
+            end
+
+        elseif Quiditch.Teams[teamName] and Quiditch.Teams[teamName].captain == ply:SteamID64() then
+
+            Quiditch.AddPlayerToTeam(ply, teamName)
+
+             for k, v in pairs(Quiditch.JobList) do
+                if Quiditch.Teams[teamName][v] ~= nil then
+                    local p = player.GetBySteamID64(Quiditch.Teams[teamName][v])
+
+                    if p then
+                        Quiditch.Notif(string.format(Quiditch.Lang.PlayerJoined, ply:Name(), 0, p)
+                    end
+                end
+            end
+        end
+
+        local p = player.GetBySteamID64(uid)
+
+        if p then
+            Quiditch.Notif(string.format(Quiditch.Lang.PlayerInviteTeam, teamName, 0, p)
+        end
+
+    end, function()
+        Quiditch.Notif(Quiditch.Lang.PlayerAlreadyInTeam, 1, ply)
+    end)
+
+    ply.LastQuiditchNet = os.time() + 1
+end )
+
+
+
 local meta = FindMetaTable("Player")
 function meta:QuiditchSync()
     net.Start("Quiditch:Sync")
