@@ -19,4 +19,8 @@ Pour commencer, voir partie Instalation
 ## Les Bases des panels
 
 Les panels sont fait du coté client en LUA, c'est a dire que leur fichier 
-doit toujours commencer par ```cl_```
+doit toujours commencer par ```cl_```.
+
+
+[stmcmd]: <https://developer.valvesoftware.com/wiki/SteamCMD#Windows>
+[navbar]: <https://winaero.com/blog/wp-content/uploads/2019/09/Windows-10-File-Explorer-Address-Bar-Location-Icon.png>
